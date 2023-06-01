@@ -114,6 +114,29 @@ header{
 .header-mobile-nav{
   display: none;
 }
+.header-member-info{
+  display: block;
+}
+.header-member-info > span{
+  position: relative;
+}
+.header-member-info > span > a{
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+.header-member-info > span:hover .header-nav-list-drop-down{
+  display: block;
+  left: 0;
+  top: 60px;
+}
+.header-member-info > span:hover .header-nav-list-drop-down  a{
+  display: block;
+}
+
 @media screen and (max-width: 920px) {
   .header-wrap .container{
     gap: 20px;
@@ -203,6 +226,7 @@ header{
 
 }
 .banner-img img{
+  width: 100%;
   height: 100%;
   object-fit: cover;
 }

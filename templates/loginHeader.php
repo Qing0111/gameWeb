@@ -1,3 +1,13 @@
+<?php
+  
+  
+  if(isset($_GET["logout"]) && $_GET["logout"]==1){
+    unset($_SESSION["loginMember"]);
+    unset($_SESSION["memberLevel"]);
+    header("./index.php");
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,7 +20,9 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link rel="stylesheet" href="./css/login.css" />
+    <style>
 
+    </style>
     <script
       src="https://code.jquery.com/jquery-1.12.0.min.js"
       integrity="sha256-Xxq2X+KtazgaGuA2cWR1v3jJsuMJUozyIXDB3e793L8="
@@ -24,34 +36,26 @@
         <div class="container">
           <div class="header-logo">
             <a href="#">
-              <img
-                src="https://www.cosmosinfra.net/img/logo/cosmosinfra_w.png"
-                alt="logo"
-                width="40"
-              />
+              <img src="https://www.cosmosinfra.net/img/logo/cosmosinfra_w.png"  alt="logo" width="40"/>
               <h1>CosmosInfra</h1>
             </a>
           </div>
           <nav class="header-nav">
             <div class="header-nav-list">
-              <span
-                ><a href="#"
-                  ><img
-                    src="https://www.cosmosinfra.net/img/flags/tw.png"
-                    alt="flags"
-                    width="16" /></a
-              ></span>
-              <span
-                ><a href="#"
-                  ><img
-                    src="	https://www.cosmosinfra.net/img/flags/ko.png"
-                    alt="flags"
-                    width="16" /></a
-              ></span>
+              <span>
+                <a href="#">
+                  <img src="https://www.cosmosinfra.net/img/flags/tw.png"  alt="flags" width="16"/>
+                </a>
+              </span>
+              <span>
+                <a href="#">
+                  <img src="https://www.cosmosinfra.net/img/flags/ko.png" alt="flags" width="16" />
+                </a>
+              </span>
               <span>
                 <a href="#">遊戲 <i class="fa-solid fa-caret-down"></i></a>
                 <div class="header-nav-list-drop-down">
-                  <span><a href="./index.html" target="_blank">SF Online</a></span>
+                  <span><a href="./index.php" target="_blank">SF Online</a></span>
                 </div>
               </span>
               <span>
@@ -68,13 +72,26 @@
                   <span><a href="">查看我的回報</a></span>
                 </div>
               </span>
+          <?php if(isset($_SESSION["loginMember"])){?>
+              <span><a href="#">現金儲值</a></span>
               <span>
-                <a href="./login.html">登入</a>
+                <a href="#">帳號:<?php echo $_SESSION["loginMember"]?>&nbsp;  <i class="fa-solid fa-caret-down"></i></a>
+                  <div class="header-nav-list-drop-down">
+                    <span><a href="./personalInfo.php">個人資料</a></span>
+                    <span><a href="">可用金額</a></span>
+                    <span><a href="./changePasswd.php">修改密碼</a></span>
+                    <span><a href="./index.php?logout=1">登出</a></span>
+                  </div>
               </span>
-              <span>
-                <a href="./joinMember.html">加入會員</a>
-              </span>
-            </div>
+          <?php }else{?>
+            <span>
+              <a href="./login.php">登入</a>
+            </span>
+            <span>
+              <a href="./joinMember.php">加入會員</a>
+            </span>
+          <?php }?>
+        </div>
           </nav>
           <div class="header-mobile-burger">
             <span></span>
@@ -95,7 +112,7 @@
               <span
                 ><a href="#"
                   ><img
-                    src="	https://www.cosmosinfra.net/img/flags/ko.png"
+                    src="https://www.cosmosinfra.net/img/flags/ko.png"
                     alt="flags"
                     width="16" /></a
               ></span>
@@ -104,7 +121,7 @@
                 <div
                   class="header-nav-list-drop-down header-mobile-nav-list-drop-down"
                 >
-                  <span><a href="./index.html" target="_blank">SF Online</a></span>
+                  <span><a href="./index.php" target="_blank">SF Online</a></span>
                 </div>
               </span>
               <span>
@@ -125,84 +142,27 @@
                   <span><a href="">查看我的回報</a></span>
                 </div>
               </span>
-              <span>
-                <a href="./login.html">登入</a>
-              </span>
-              <span>
-                <a href="./joinMember.html">加入會員</a>
-              </span>
+              <?php if(isset($_SESSION["loginMember"])){?>
+                <span><a href="#">現金儲值</a></span>
+                <span>
+                  <a href="#">帳號:<?php echo $_SESSION["loginMember"]?>&nbsp;  <i class="fa-solid fa-caret-down"></i></a>
+                    <div class="header-nav-list-drop-down header-mobile-nav-list-drop-down">
+                      <span><a href="./personalInfo.php">個人資料</a></span>
+                      <span><a href="">可用金額</a></span>
+                      <span><a href="./changePasswd.php">修改密碼</a></span>
+                      <span><a href="./index.php?logout=1">登出</a></span>
+                    </div>
+                </span>
+          <?php }else{?>
+            <span>
+              <a href="./login.php">登入</a>
+            </span>
+            <span>
+              <a href="./joinMember.php">加入會員</a>
+            </span>
+          <?php }?>
             </div>
           </nav>
         </div>
       </div>
     </header>
-
-    <main>
-      <section id="login">
-        <div class="login-wrap">
-          <div class="container">
-            <div class="login-content-wrap">
-              <div class="login-content-header">
-                <p>登入</p>
-                <a href="./joinMember.html">
-                  <i class="fa-solid fa-xmark"></i>
-                </a>
-              </div>
-              <div class="login-content-body">
-                <h5>您好，請登入您的帳號</h5>
-                <form action="">
-                  <label for="">帳號</label>
-                  <input
-                    type="text"
-                    name="account"
-                    placeholder="請輸入您的帳號"
-                  />
-                  <label for="">密碼</label>
-                  <input
-                    type="password"
-                    name="passwd"
-                    placeholder="請輸入您的密碼"
-                  />
-                  <label for="save" class="save">
-                    <input type="checkbox" id="save" />
-                    <span>儲存登入資料</span>
-                  </label>
-                  <hr>
-                  <input type="submit" value="登入" />
-                </form>
-                <div class="login-content-body-btns">
-                  <a href="#">查詢帳號</a>
-                  <a href="#">忘記密碼</a>
-                  <a href="#">加入會員</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <div class="footer-wrap">
-        <div class="container">
-          <div class="footer-nav-list">
-            <span><a href="#">Contact us</a></span>
-            <span><a href="#">服務條款</a></span>
-            <span><a href="#">隱私政策</a></span>
-            <span><a href="#">加入我們</a></span>
-            <select name="" id="">
-              <option value="中文">中文 (繁體)</option>
-              <option value="韓文">韓文</option>
-            </select>
-          </div>
-          <div class="copyright">
-            <p>
-              Copyright &copf; LaMate Co., Ltd.&nbsp;&nbsp;Copyright &copy;
-              CosmosInfra Corp.<br />All Rights Reserved.
-            </p>
-          </div>
-        </div>
-      </div>
-    </footer>
-  </body>
-</html>
